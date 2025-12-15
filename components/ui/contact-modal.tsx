@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, Send, Mail, Calendar, Twitter, Linkedin } from "lucide-react";
+import { X, Send, Mail, Calendar, Linkedin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ContactModalProps {
@@ -169,13 +169,9 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                             <h3 className="text-lg font-semibold text-white mb-4">Follow Us</h3>
                                             <div className="flex items-center gap-4">
                                                 <a
-                                                    href="#"
-                                                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 text-neutral-400 hover:text-white hover:bg-white/15 transition"
-                                                >
-                                                    <Twitter className="h-5 w-5" />
-                                                </a>
-                                                <a
-                                                    href="#"
+                                                    href="https://linkedin.com/company/venturevive"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
                                                     className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 text-neutral-400 hover:text-white hover:bg-white/15 transition"
                                                 >
                                                     <Linkedin className="h-5 w-5" />

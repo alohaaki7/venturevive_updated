@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Mail, Calendar, Send, Twitter, Linkedin } from "lucide-react";
+import { Mail, Calendar, Send, Linkedin } from "lucide-react";
 
 export function ContactSection() {
     return (
@@ -148,14 +148,6 @@ export function ContactSection() {
                         >
                             <h3 className="text-lg font-semibold text-white mb-4">Follow Us</h3>
                             <div className="flex items-center gap-4">
-                                <a
-                                    href="https://twitter.com/venturevive"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 text-neutral-400 hover:text-white hover:bg-white/15 transition"
-                                >
-                                    <Twitter className="h-5 w-5" />
-                                </a>
                                 <a
                                     href="https://linkedin.com/company/venturevive"
                                     target="_blank"

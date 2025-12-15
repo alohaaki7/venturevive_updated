@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Calendar, Twitter, Linkedin, Instagram, Dribbble, Globe } from "lucide-react";
+import { Mail, Calendar, Linkedin, Instagram, Dribbble, Globe } from "lucide-react";
 
 export function Footer() {
     return (
@@ -54,12 +54,6 @@ export function Footer() {
                                         className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white text-gray-900 border border-white/10 hover:bg-white/90 transition-colors duration-200"
                                     >
                                         <Linkedin className="w-5 h-5" />
-                                    </a>
-                                    <a
-                                        href="#"
-                                        className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white text-gray-900 border border-white/10 hover:bg-white/90 transition-colors duration-200"
-                                    >
-                                        <Twitter className="w-5 h-5" />
                                     </a>
                                 </div>
                             </div>
