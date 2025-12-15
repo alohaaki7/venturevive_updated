@@ -31,10 +31,13 @@ export function HeroSection() {
             >
                 {/* Visual / Image */}
                 <div className="relative overflow-hidden rounded-[20px] min-h-[300px] md:min-h-[520px] order-first md:order-first">
-                    <img
-                        src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/3c47338a-7702-4975-a53f-3bcd74163776_1600w.webp"
+                    <Image
+                        src="/hero-main.webp"
                         alt="Abstract render"
-                        className="absolute inset-0 h-full w-full object-cover"
+                        fill
+                        priority
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     <div className="bg-gradient-to-t from-black/60 via-black/10 to-transparent absolute top-0 right-0 bottom-0 left-0"></div>
                     <div className="pointer-events-none absolute inset-0 opacity-20 bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:28px_28px]"></div>
@@ -111,7 +114,7 @@ export function HeroSection() {
                     transition={{ duration: 0.6 }}
                     className="relative flex flex-col overflow-hidden bg-neutral-900/40 h-[320px] sm:h-[360px] md:h-[400px] rounded-[24px] sm:rounded-[32px] border border-white/10 justify-end group"
                 >
-                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c18c71a7-b8f4-4628-881d-cf4f8c40d365_1600w.webp" alt="Visual" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <Image src="/hero-card1.webp" alt="Trust and Credibility" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
                     <div className="bg-gradient-to-t from-black/90 via-black/50 to-transparent absolute top-0 right-0 bottom-0 left-0"></div>
                     <div className="relative p-5 sm:p-6 md:p-8">
                         <div className="flex items-start gap-3">
@@ -134,7 +137,7 @@ export function HeroSection() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="relative flex flex-col overflow-hidden bg-neutral-900/40 h-[320px] sm:h-[360px] md:h-[400px] rounded-[24px] sm:rounded-[32px] border border-white/10 justify-end group"
                 >
-                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/dda527a3-a7cd-4e3f-a750-90f31be3dde0_1600w.webp" alt="Visual" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <Image src="/hero-card2.webp" alt="Global Reach" fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
                     <div className="bg-gradient-to-t from-black/90 via-black/50 to-transparent absolute top-0 right-0 bottom-0 left-0"></div>
                     <div className="relative p-5 sm:p-6 md:p-8">
                         <div className="flex items-start gap-3">

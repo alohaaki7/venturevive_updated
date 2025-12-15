@@ -31,18 +31,6 @@ export function Footer() {
                                 </a>
                             </div>
 
-                            {/* Call */}
-                            <div>
-                                <p className="text-sm text-white/60 font-sans">Schedule a Call</p>
-                                <a
-                                    href="#contact"
-                                    className="inline-flex items-center gap-2 hover:bg-white/90 text-sm font-medium text-gray-900 tracking-tight bg-white border-white/10 border rounded-full mt-2 py-3 px-5 transition-colors duration-200"
-                                >
-                                    <Calendar className="w-4 h-4" />
-                                    <span className="font-sans">Book a Meeting</span>
-                                </a>
-                            </div>
-
                             {/* Social */}
                             <div>
                                 <p className="text-sm text-white/60 font-sans">Follow Along</p>
