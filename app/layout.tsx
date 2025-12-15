@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AuraBackground } from "@/components/ui/aura-background";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -39,6 +40,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </ClientLayout>
+        <SpeedInsights />
       </body>
     </html>
   );
