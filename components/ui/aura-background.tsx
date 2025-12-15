@@ -1,85 +1,116 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+// Pre-calculated star positions to avoid hydration mismatch
+const STARS = Array.from({ length: 80 }, (_, i) => ({
+    width: ((i * 7) % 20) / 10 + 1,
+    height: ((i * 11) % 20) / 10 + 1,
+    top: ((i * 13) % 100),
+    left: ((i * 17) % 100),
+    opacity: ((i * 19) % 50) / 100 + 0.2,
+    duration: ((i * 23) % 30) / 10 + 2,
+    delay: ((i * 29) % 50) / 10,
+}));
+
+const PARTICLES = Array.from({ length: 15 }, (_, i) => ({
+    width: ((i * 7) % 40) / 10 + 2,
+    height: ((i * 11) % 40) / 10 + 2,
+    top: ((i * 13) % 100),
+    left: ((i * 17) % 100),
+    r: 100 + ((i * 19) % 100),
+    g: 150 + ((i * 23) % 100),
+    blur: ((i * 29) % 100) / 10 + 5,
+    duration: ((i * 31) % 200) / 10 + 15,
+    delay: ((i * 37) % 100) / 10,
+}));
 
 export function AuraBackground() {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     return (
         <div className="fixed inset-0 -z-10 overflow-hidden bg-[#030314]">
 
             {/* Stars/particles */}
             <div className="stars-container absolute inset-0">
-                {[...Array(80)].map((_, i) => (
+                {STARS.map((star, i) => (
                     <div
                         key={i}
                         className="star absolute rounded-full bg-white"
                         style={{
-                            width: `${Math.random() * 2 + 1}px`,
-                            height: `${Math.random() * 2 + 1}px`,
-                            top: `${Math.random() * 100}%`,
-                            left: `${Math.random() * 100}%`,
-                            opacity: Math.random() * 0.5 + 0.2,
-                            animation: `twinkle ${Math.random() * 3 + 2}s ease-in-out infinite`,
-                            animationDelay: `${Math.random() * 5}s`,
+                            width: `${star.width}px`,
+                            height: `${star.height}px`,
+                            top: `${star.top}%`,
+                            left: `${star.left}%`,
+                            opacity: star.opacity,
+                            animation: `twinkle ${star.duration}s ease-in-out infinite`,
+                            animationDelay: `${star.delay}s`,
                         }}
                     />
                 ))}
             </div>
 
             {/* Shooting stars - falling diagonally with trail */}
-            <div className="shooting-stars-container absolute inset-0 overflow-hidden pointer-events-none">
-                {/* Top section stars */}
-                {[...Array(6)].map((_, i) => (
-                    <div
-                        key={`top-${i}`}
-                        className="shooting-star"
-                        style={{
-                            top: `${-5 + Math.random() * 20}%`,
-                            left: `${5 + i * 16}%`,
-                            animationDelay: `${i * 2 + Math.random() * 2}s`,
-                        }}
-                    />
-                ))}
-                {/* Middle section stars */}
-                {[...Array(6)].map((_, i) => (
-                    <div
-                        key={`mid-${i}`}
-                        className="shooting-star"
-                        style={{
-                            top: `${25 + Math.random() * 25}%`,
-                            left: `${8 + i * 15}%`,
-                            animationDelay: `${i * 2.5 + 1 + Math.random() * 2}s`,
-                        }}
-                    />
-                ))}
-                {/* Bottom section stars */}
-                {[...Array(6)].map((_, i) => (
-                    <div
-                        key={`bottom-${i}`}
-                        className="shooting-star"
-                        style={{
-                            top: `${55 + Math.random() * 25}%`,
-                            left: `${3 + i * 17}%`,
-                            animationDelay: `${i * 3 + 0.5 + Math.random() * 2}s`,
-                        }}
-                    />
-                ))}
-            </div>
+            {mounted && (
+                <div className="shooting-stars-container absolute inset-0 overflow-hidden pointer-events-none">
+                    {/* Top section stars */}
+                    {[...Array(6)].map((_, i) => (
+                        <div
+                            key={`top-${i}`}
+                            className="shooting-star"
+                            style={{
+                                top: `${-5 + (i * 3)}%`,
+                                left: `${5 + i * 16}%`,
+                                animationDelay: `${i * 2 + (i * 0.3)}s`,
+                            }}
+                        />
+                    ))}
+                    {/* Middle section stars */}
+                    {[...Array(6)].map((_, i) => (
+                        <div
+                            key={`mid-${i}`}
+                            className="shooting-star"
+                            style={{
+                                top: `${25 + (i * 4)}%`,
+                                left: `${8 + i * 15}%`,
+                                animationDelay: `${i * 2.5 + 1 + (i * 0.4)}s`,
+                            }}
+                        />
+                    ))}
+                    {/* Bottom section stars */}
+                    {[...Array(6)].map((_, i) => (
+                        <div
+                            key={`bottom-${i}`}
+                            className="shooting-star"
+                            style={{
+                                top: `${55 + (i * 4)}%`,
+                                left: `${3 + i * 17}%`,
+                                animationDelay: `${i * 3 + 0.5 + (i * 0.3)}s`,
+                            }}
+                        />
+                    ))}
+                </div>
+            )}
 
             {/* Floating particles */}
             <div className="particles-container absolute inset-0 overflow-hidden">
-                {[...Array(15)].map((_, i) => (
+                {PARTICLES.map((p, i) => (
                     <div
                         key={i}
                         className="particle absolute rounded-full"
                         style={{
-                            width: `${Math.random() * 4 + 2}px`,
-                            height: `${Math.random() * 4 + 2}px`,
-                            top: `${Math.random() * 100}%`,
-                            left: `${Math.random() * 100}%`,
-                            background: `radial-gradient(circle, rgba(${100 + Math.random() * 100}, ${150 + Math.random() * 100}, 255, 0.8) 0%, transparent 70%)`,
-                            boxShadow: `0 0 ${Math.random() * 10 + 5}px rgba(100, 150, 255, 0.5)`,
-                            animation: `float ${Math.random() * 20 + 15}s ease-in-out infinite`,
-                            animationDelay: `${Math.random() * 10}s`,
+                            width: `${p.width}px`,
+                            height: `${p.height}px`,
+                            top: `${p.top}%`,
+                            left: `${p.left}%`,
+                            background: `radial-gradient(circle, rgba(${p.r}, ${p.g}, 255, 0.8) 0%, transparent 70%)`,
+                            boxShadow: `0 0 ${p.blur}px rgba(100, 150, 255, 0.5)`,
+                            animation: `float ${p.duration}s ease-in-out infinite`,
+                            animationDelay: `${p.delay}s`,
                         }}
                     />
                 ))}

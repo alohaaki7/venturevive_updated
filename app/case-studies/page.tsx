@@ -2,25 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ExternalLink, ArrowLeft } from "lucide-react";
-
-// Add your case studies here - just add the name, description, and vercel link
-const caseStudies = [
-    {
-        name: "Example Fund",
-        description: "Complete website redesign for a $50M seed fund. Modern, fast, and optimized for founder conversions.",
-        link: "https://example.vercel.app",
-        tags: ["Website", "Branding"],
-    },
-    {
-        name: "Another VC",
-        description: "Social media presence and website for an emerging venture fund focused on climate tech.",
-        link: "https://another-example.vercel.app",
-        tags: ["Website", "Social"],
-    },
-    // Add more case studies here...
-];
+import { caseStudies } from "@/lib/case-studies";
 
 export default function CaseStudiesPage() {
     return (
@@ -73,9 +58,17 @@ export default function CaseStudiesPage() {
                                 boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
                             }}
                         >
-                            {/* Preview placeholder */}
-                            <div className="h-40 rounded-xl bg-white/5 mb-4 flex items-center justify-center border border-white/5 overflow-hidden group-hover:border-white/10 transition-colors">
-                                <ExternalLink className="w-8 h-8 text-white/20 group-hover:text-white/40 transition-colors" />
+                            {/* Preview image */}
+                            <div className="h-40 rounded-xl bg-white/5 mb-4 flex items-center justify-center border border-white/5 overflow-hidden group-hover:border-white/10 transition-colors relative">
+                                {study.image ? (
+                                    <img
+                                        src={study.image}
+                                        alt={study.name}
+                                        className="w-full h-full object-cover object-top"
+                                    />
+                                ) : (
+                                    <ExternalLink className="w-8 h-8 text-white/20 group-hover:text-white/40 transition-colors" />
+                                )}
                             </div>
 
                             {/* Tags */}
