@@ -12,7 +12,7 @@ const team = [
         role: "Strategy & Brand",
         roleDescription: "Crafting brand identities that help VCs stand out and attract better deal flow.",
         gradient: "from-blue-500 via-purple-500 to-pink-500",
-        linkedin: "https://linkedin.com/in/akmyrat",
+        linkedin: "https://linkedin.com/in/akmyrat-a-60129b17b",
     },
     {
         name: "Jumamyrat",
