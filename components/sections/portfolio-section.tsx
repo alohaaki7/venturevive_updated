@@ -122,91 +122,100 @@ export function PortfolioSection() {
 
             {/* Carousel for multiple items */}
             {portfolioItems.length > 1 && (
-                <div className="relative flex items-center justify-center gap-4 sm:gap-6 h-[280px] sm:h-[340px] overflow-hidden">
+                <div className="relative flex items-center justify-center h-[280px] sm:h-[340px] overflow-visible">
                     <AnimatePresence initial={false} mode="sync">
-                        {getVisibleItems().map((item) => (
-                            <motion.div
-                                key={`${item.id}-${item.position}`}
-                                initial={{
-                                    opacity: 0,
-                                    scale: 0.85,
-                                    x: item.position > 0 ? 100 : -100
-                                }}
-                                animate={{
-                                    opacity: item.position === 0 ? 1 : 0.4,
-                                    scale: item.position === 0 ? 1 : 0.9,
-                                    x: 0,
-                                    zIndex: item.position === 0 ? 10 : 5,
-                                    filter: item.position === 0 ? "grayscale(0)" : "grayscale(1)"
-                                }}
-                                exit={{
-                                    opacity: 0,
-                                    scale: 0.85,
-                                    x: item.position > 0 ? -100 : 100
-                                }}
-                                transition={{
-                                    duration: 0.5,
-                                    ease: [0.32, 0.72, 0, 1]
-                                }}
-                                onClick={() => {
-                                    if (item.position === -1) prevSlide();
-                                    if (item.position === 1) nextSlide();
-                                }}
-                                className={`absolute w-[280px] sm:w-[400px] md:w-[500px] h-[180px] sm:h-[240px] md:h-[280px] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 ${item.position !== 0 ? "cursor-pointer hover:opacity-50 transition-opacity" : ""
-                                    }`}
-                                style={{
-                                    left: '50%',
-                                    transform: `translateX(calc(-50% + ${item.position * 320}px))`,
-                                }}
-                            >
-                                {/* Card Image */}
-                                <div className="absolute inset-0">
-                                    <img
-                                        src={item.image}
-                                        alt={item.title}
-                                        className="w-full h-full object-cover object-top"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                                </div>
+                        {getVisibleItems().map((item) => {
+                            // Calculate responsive offset based on screen size
+                            const getOffset = (position: number) => {
+                                if (position === 0) return 0;
+                                // Offset for side cards - responsive
+                                return position * 55; // percentage-based offset
+                            };
 
-                                {/* Card Content - Compact bottom bar */}
-                                {item.position === 0 && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.3, delay: 0.15 }}
-                                        className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-black/40 backdrop-blur-sm flex items-center justify-between"
-                                    >
-                                        <div>
-                                            <p className="text-[9px] text-white/50 uppercase tracking-wider">
-                                                {item.category}
-                                            </p>
-                                            <h3 className="text-sm sm:text-base font-semibold text-white">
-                                                {item.title}
-                                            </h3>
-                                        </div>
-                                        <a
-                                            href={item.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-1.5 text-xs text-blue-300 hover:text-blue-200 transition-colors px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20"
-                                        >
-                                            View
-                                            <ExternalLink className="w-3 h-3" />
-                                        </a>
-                                    </motion.div>
-                                )}
-
-                                {/* Side card labels */}
-                                {item.position !== 0 && (
-                                    <div className="absolute bottom-3 left-4">
-                                        <p className="text-xs sm:text-sm font-medium text-white/70">
-                                            {item.title}
-                                        </p>
+                            return (
+                                <motion.div
+                                    key={`${item.id}-${item.position}`}
+                                    initial={{
+                                        opacity: 0,
+                                        scale: 0.85,
+                                        x: item.position > 0 ? 100 : -100
+                                    }}
+                                    animate={{
+                                        opacity: item.position === 0 ? 1 : 0.4,
+                                        scale: item.position === 0 ? 1 : 0.85,
+                                        x: `${getOffset(item.position)}%`,
+                                        zIndex: item.position === 0 ? 10 : 5,
+                                        filter: item.position === 0 ? "grayscale(0)" : "grayscale(1)"
+                                    }}
+                                    exit={{
+                                        opacity: 0,
+                                        scale: 0.85,
+                                        x: item.position > 0 ? -100 : 100
+                                    }}
+                                    transition={{
+                                        duration: 0.5,
+                                        ease: [0.32, 0.72, 0, 1]
+                                    }}
+                                    onClick={() => {
+                                        if (item.position === -1) prevSlide();
+                                        if (item.position === 1) nextSlide();
+                                    }}
+                                    className={`absolute w-[280px] sm:w-[400px] md:w-[500px] h-[180px] sm:h-[240px] md:h-[280px] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 ${item.position !== 0 ? "cursor-pointer hover:opacity-50 transition-opacity" : ""
+                                        }`}
+                                    style={{
+                                        left: '50%',
+                                        marginLeft: item.position === 0 ? '-250px' : item.position === -1 ? '-450px' : '-50px',
+                                    }}
+                                >
+                                    {/* Card Image */}
+                                    <div className="absolute inset-0">
+                                        <img
+                                            src={item.image}
+                                            alt={item.title}
+                                            className="w-full h-full object-cover object-top"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                                     </div>
-                                )}
-                            </motion.div>
-                        ))}
+
+                                    {/* Card Content - Compact bottom bar */}
+                                    {item.position === 0 && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.3, delay: 0.15 }}
+                                            className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-black/40 backdrop-blur-sm flex items-center justify-between"
+                                        >
+                                            <div>
+                                                <p className="text-[9px] text-white/50 uppercase tracking-wider">
+                                                    {item.category}
+                                                </p>
+                                                <h3 className="text-sm sm:text-base font-semibold text-white">
+                                                    {item.title}
+                                                </h3>
+                                            </div>
+                                            <a
+                                                href={item.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-1.5 text-xs text-blue-300 hover:text-blue-200 transition-colors px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20"
+                                            >
+                                                View
+                                                <ExternalLink className="w-3 h-3" />
+                                            </a>
+                                        </motion.div>
+                                    )}
+
+                                    {/* Side card labels */}
+                                    {item.position !== 0 && (
+                                        <div className="absolute bottom-3 left-4">
+                                            <p className="text-xs sm:text-sm font-medium text-white/70">
+                                                {item.title}
+                                            </p>
+                                        </div>
+                                    )}
+                                </motion.div>
+                            );
+                        })}
                     </AnimatePresence>
 
                     {/* Navigation Arrows - only show if multiple items */}
