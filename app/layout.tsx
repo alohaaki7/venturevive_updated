@@ -27,6 +27,18 @@ export const metadata: Metadata = {
   keywords: ['VC marketing', 'venture capital social media', 'Web3 marketing', 'VC branding', 'startup marketing', 'deal flow', 'founder outreach'],
   authors: [{ name: 'VentureVive' }],
   creator: 'VentureVive',
+  icons: {
+    icon: [
+      { url: '/icon.png', sizes: '375x375', type: 'image/png' },
+      { url: '/icon.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    shortcut: '/icon.png',
+  },
+  manifest: '/manifest.json',
   openGraph: {
     type: 'website',
     locale: 'en_US',
