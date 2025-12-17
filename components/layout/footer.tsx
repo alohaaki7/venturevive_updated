@@ -62,7 +62,7 @@ function AnimatedText({ text, className }: { text: string; className?: string })
     return (
         <motion.span
             className={className}
-            variants={container}
+            variants={container as any}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
@@ -70,7 +70,7 @@ function AnimatedText({ text, className }: { text: string; className?: string })
         >
             {words.map((word, index) => (
                 <motion.span
-                    variants={child}
+                    variants={child as any}
                     key={index}
                     style={{ marginRight: "0.3em", display: "inline-block" }}
                 >
