@@ -6,6 +6,7 @@ import { AuraBackground } from "@/components/ui/aura-background";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ClientLayout } from "@/components/layout/client-layout";
+import { HomePageStructuredData } from "@/components/seo/structured-data";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -84,6 +85,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen relative`}
       >
+        <HomePageStructuredData />
         <ClientLayout>
           <AuraBackground />
           <Navbar />
