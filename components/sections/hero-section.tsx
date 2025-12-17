@@ -36,7 +36,7 @@ export function HeroSection() {
     const y2 = useTransform(scrollY2, [0, 1], ["0%", "-15%"]);
 
     // Smooth easing for all animations - ease-out-expo feel
-    const smoothEase = [0.16, 1, 0.3, 1];
+    const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
     return (
         <section className="relative z-10 mx-4 sm:mx-8 md:mx-16 pt-24 pb-12">
