@@ -35,8 +35,6 @@ export function HeroSection() {
     });
     const y2 = useTransform(scrollY2, [0, 1], ["0%", "-15%"]);
 
-    // Smooth easing for all animations - ease-out-expo feel
-    const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
     return (
         <section className="relative z-10 mx-4 sm:mx-8 md:mx-16 pt-24 pb-12">
@@ -47,7 +45,7 @@ export function HeroSection() {
                 animate={isPreloaderDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{
                     duration: 0.9,
-                    ease: smoothEase,
+                    ease: [0.16, 1, 0.3, 1] as const,
                 }}
                 className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-neutral-900/40 border border-white/5 rounded-[24px] backdrop-blur-md items-stretch"
             >
@@ -58,7 +56,7 @@ export function HeroSection() {
                     animate={isPreloaderDone ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.02 }}
                     transition={{
                         duration: 0.9,
-                        ease: smoothEase
+                        ease: [0.16, 1, 0.3, 1] as const
                     }}
                 >
                     <Image
@@ -76,7 +74,7 @@ export function HeroSection() {
                         className="absolute left-3 sm:left-4 bottom-3 sm:bottom-4 flex items-center gap-2"
                         initial={{ opacity: 0 }}
                         animate={isPreloaderDone ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ duration: 0.6, delay: 0.3, ease: smoothEase }}
+                        transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
                     >
                         <span className="inline-flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg sm:rounded-xl bg-white/10 backdrop-blur flex-shrink-0 text-white">
                             <ShieldCheck className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -91,7 +89,7 @@ export function HeroSection() {
                         className="flex items-center gap-2 text-[10px] sm:text-xs text-neutral-400 mb-4"
                         initial={{ opacity: 0 }}
                         animate={isPreloaderDone ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ duration: 0.6, ease: smoothEase }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
                     >
                         <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
                         <span>Branding that closes deals</span>
@@ -119,7 +117,7 @@ export function HeroSection() {
                         className="sm:mt-8 flex flex-col lg:flex-row lg:items-center mt-6 gap-x-3 gap-y-3 items-stretch"
                         initial={{ opacity: 0, y: 15 }}
                         animate={isPreloaderDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-                        transition={{ duration: 0.7, delay: 0.3, ease: smoothEase }}
+                        transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
                     >
                         {/* Primary Button */}
                         <Link href="#solutions" className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3 text-sm font-semibold text-black transition-transform active:scale-95 hover:scale-105">
@@ -138,7 +136,7 @@ export function HeroSection() {
                         className="mt-6 sm:mt-8 grid grid-cols-3 gap-3 sm:gap-4"
                         initial={{ opacity: 0, y: 15 }}
                         animate={isPreloaderDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-                        transition={{ duration: 0.7, delay: 0.4, ease: smoothEase }}
+                        transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] as const }}
                     >
                         <div className="bg-neutral-900/60 rounded-[16px] sm:rounded-[20px] p-3 sm:p-4 border border-white/5 transition-all duration-300 hover:scale-105 hover:border-white/20 hover:bg-neutral-800/60 cursor-pointer">
                             <p className="text-[9px] sm:text-[10px] text-neutral-400">Websites</p>
@@ -167,7 +165,7 @@ export function HeroSection() {
                     initial={{ opacity: 0, y: 60, scale: 0.95 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 1, ease: smoothEase }}
+                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
                     className="relative flex flex-col overflow-hidden bg-neutral-900/40 h-[320px] sm:h-[360px] md:h-[400px] rounded-[24px] sm:rounded-[32px] border border-white/10 justify-end group"
                 >
                     {/* Parallax Image Container */}
@@ -189,7 +187,7 @@ export function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.3, ease: smoothEase }}
+                        transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
                     >
                         <div className="flex items-start gap-3">
                             <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 backdrop-blur text-emerald-400 flex-shrink-0 border border-emerald-500/20">
@@ -209,7 +207,7 @@ export function HeroSection() {
                     initial={{ opacity: 0, y: 60, scale: 0.95 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 1, delay: 0.1, ease: smoothEase }}
+                    transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
                     className="relative flex flex-col overflow-hidden bg-neutral-900/40 h-[320px] sm:h-[360px] md:h-[400px] rounded-[24px] sm:rounded-[32px] border border-white/10 justify-end group"
                 >
                     {/* Parallax Image Container */}
@@ -231,7 +229,7 @@ export function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.4, ease: smoothEase }}
+                        transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] as const }}
                     >
                         <div className="flex items-start gap-3">
                             <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10 backdrop-blur text-indigo-400 flex-shrink-0 border border-indigo-500/20">
