@@ -1,39 +1,74 @@
 "use client";
 
-import React from "react";
-import { Clock, Palette, Star, Play, Lightbulb, Target, BarChart3, Repeat } from "lucide-react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { Clock, Lightbulb, BarChart3 } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { GSAPHeading, GSAPParagraph } from "@/components/ui/gsap-text";
 
 export function SolutionsSection() {
+    // Refs for parallax on each card
+    const card1Ref = useRef<HTMLElement>(null);
+    const card2Ref = useRef<HTMLElement>(null);
+    const card3Ref = useRef<HTMLElement>(null);
+    const card4Ref = useRef<HTMLElement>(null);
+
+    // Parallax transforms
+    const { scrollYProgress: scroll1 } = useScroll({ target: card1Ref, offset: ["start end", "end start"] });
+    const { scrollYProgress: scroll2 } = useScroll({ target: card2Ref, offset: ["start end", "end start"] });
+    const { scrollYProgress: scroll3 } = useScroll({ target: card3Ref, offset: ["start end", "end start"] });
+    const { scrollYProgress: scroll4 } = useScroll({ target: card4Ref, offset: ["start end", "end start"] });
+
+    const y1 = useTransform(scroll1, [0, 1], ["0%", "-20%"]);
+    const y2 = useTransform(scroll2, [0, 1], ["0%", "-20%"]);
+    const y3 = useTransform(scroll3, [0, 1], ["0%", "-20%"]);
+    const y4 = useTransform(scroll4, [0, 1], ["0%", "-20%"]);
+
     return (
         <section id="solutions" className="sm:p-8 ring-1 ring-white/10 bg-white/5 rounded-3xl mx-8 sm:mx-16 p-6 backdrop-blur">
             <div className="flex items-center gap-2 text-sm text-white/70">
                 <span className="font-normal">What We Actually Do</span>
             </div>
             <div className="mt-2">
-                <h2 className="text-[44px] sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] font-medium text-white tracking-tighter">
-                    Websites. Social. <em className="italic text-blue-300">Brand.</em>
-                </h2>
-                <p className="mt-1 text-sm sm:text-base text-white/70 font-normal">
+                <GSAPHeading
+                    as="h2"
+                    className="text-[44px] sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] font-medium text-white tracking-tighter"
+                    highlight="Brand."
+                    highlightClass="italic text-blue-300"
+                >
+                    Websites. Social. Brand.
+                </GSAPHeading>
+                <GSAPParagraph className="mt-1 text-sm sm:text-base text-white/70 font-normal">
                     Three things most VC firms get wrong. We fix all of them.
-                </p>
+                </GSAPParagraph>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-4 mt-6">
-                {/* Card 1 - Expertise Visible */}
+                {/* Card 1 - Custom Websites */}
                 <motion.article
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className="sm:p-6 flex flex-col min-h-[320px] group transition-all duration-300 ring-white/15 ring-1 bg-white/10 bg-cover rounded-2xl p-5 backdrop-blur justify-between relative overflow-hidden"
-                    style={{ backgroundImage: "url('/custom-website.jpg')", backgroundPosition: "center 40px" }}
+                    ref={card1Ref}
+                    initial={{ opacity: 0, y: 60, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    className="sm:p-6 flex flex-col min-h-[320px] group transition-all duration-300 ring-white/15 ring-1 bg-white/10 rounded-2xl p-5 backdrop-blur justify-between relative overflow-hidden"
                 >
-                    <div
-                        className="absolute inset-0 transition-all duration-300 group-hover:blur-sm bg-cover rounded-2xl"
-                        style={{ backgroundImage: "url('/custom-website.jpg')", backgroundPosition: "center 40px", zIndex: -1 }}
+                    {/* Parallax Background */}
+                    <motion.div
+                        className="absolute inset-0 -inset-y-10 transition-all duration-500 group-hover:scale-105 bg-cover rounded-2xl"
+                        style={{
+                            backgroundImage: "url('/custom-website.jpg')",
+                            backgroundPosition: "center 40px",
+                            y: y1
+                        }}
                     />
-                    <div className="space-y-5 relative z-10">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-2xl" />
+                    <motion.div
+                        className="space-y-5 relative z-10"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    >
                         <div className="flex gap-3 items-center">
                             <div>
                                 <h3 className="text-lg font-semibold text-white tracking-tight">01. Custom Websites</h3>
@@ -51,26 +86,38 @@ export function SolutionsSection() {
                             </div>
                             <span className="text-xs text-white/60">2-week delivery</span>
                         </div>
-                    </div>
+                    </motion.div>
                     <div className="h-1.5 overflow-hidden relative z-10 bg-white/10 rounded-full mt-4">
                         <div className="h-full bg-white/40 rounded-full" style={{ width: "25%" }} />
                     </div>
                 </motion.article>
 
-                {/* Card 2 - Partner Time Saved */}
+                {/* Card 2 - Social That Works */}
                 <motion.article
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="sm:p-6 flex flex-col min-h-[320px] ring-1 ring-white/15 group transition-all duration-300 bg-white/10 bg-cover rounded-2xl p-5 backdrop-blur justify-between relative overflow-hidden"
-                    style={{ backgroundImage: "url('/social-globe.png')", backgroundPosition: "center bottom" }}
+                    ref={card2Ref}
+                    initial={{ opacity: 0, y: 60, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                    className="sm:p-6 flex flex-col min-h-[320px] ring-1 ring-white/15 group transition-all duration-300 bg-white/10 rounded-2xl p-5 backdrop-blur justify-between relative overflow-hidden"
                 >
-                    <div
-                        className="absolute inset-0 transition-all duration-300 group-hover:blur-sm bg-cover rounded-2xl"
-                        style={{ backgroundImage: "url('/social-globe.png')", backgroundPosition: "center bottom", zIndex: -1 }}
+                    {/* Parallax Background */}
+                    <motion.div
+                        className="absolute inset-0 -inset-y-10 transition-all duration-500 group-hover:scale-105 bg-cover rounded-2xl"
+                        style={{
+                            backgroundImage: "url('/social-globe.png')",
+                            backgroundPosition: "center bottom",
+                            y: y2
+                        }}
                     />
-                    <div className="space-y-5 relative z-10">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-2xl" />
+                    <motion.div
+                        className="space-y-5 relative z-10"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    >
                         <div className="flex items-center gap-3">
                             <div>
                                 <h3 className="text-lg font-semibold text-white tracking-tight">02. Social That Works</h3>
@@ -88,26 +135,38 @@ export function SolutionsSection() {
                             </div>
                             <span className="text-xs text-white/60">15 min/month from you</span>
                         </div>
-                    </div>
+                    </motion.div>
                     <div className="mt-4 h-1.5 bg-white/10 rounded-full overflow-hidden relative z-10">
                         <div className="h-full bg-white/40 rounded-full" style={{ width: "50%" }} />
                     </div>
                 </motion.article>
 
-                {/* Card 3 - Consistent Presence */}
+                {/* Card 3 - Brand That Sticks */}
                 <motion.article
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    className="sm:p-6 flex flex-col min-h-[320px] ring-1 ring-white/15 group transition-all duration-300 bg-white/10 bg-cover rounded-2xl p-5 backdrop-blur grayscale justify-between relative overflow-hidden"
-                    style={{ backgroundImage: "url('/brand-rings.png')", backgroundPosition: "center bottom" }}
+                    ref={card3Ref}
+                    initial={{ opacity: 0, y: 60, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="sm:p-6 flex flex-col min-h-[320px] ring-1 ring-white/15 group transition-all duration-300 bg-white/10 rounded-2xl p-5 backdrop-blur grayscale justify-between relative overflow-hidden"
                 >
-                    <div
-                        className="absolute inset-0 transition-all duration-300 group-hover:blur-sm bg-cover rounded-2xl grayscale"
-                        style={{ backgroundImage: "url('/brand-rings.png')", backgroundPosition: "center bottom", zIndex: -1 }}
+                    {/* Parallax Background */}
+                    <motion.div
+                        className="absolute inset-0 -inset-y-10 transition-all duration-500 group-hover:scale-105 bg-cover rounded-2xl grayscale"
+                        style={{
+                            backgroundImage: "url('/brand-rings.png')",
+                            backgroundPosition: "center bottom",
+                            y: y3
+                        }}
                     />
-                    <div className="space-y-5 relative z-10">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-2xl" />
+                    <motion.div
+                        className="space-y-5 relative z-10"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    >
                         <div className="flex items-center gap-3">
                             <div>
                                 <h3 className="text-lg font-semibold text-white tracking-tight">03. Brand That Sticks</h3>
@@ -131,26 +190,38 @@ export function SolutionsSection() {
                                 <span className="text-xs">Reliable posting</span>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                     <div className="mt-4 h-1.5 bg-white/10 rounded-full overflow-hidden relative z-10">
                         <div className="h-full bg-white/40 rounded-full" style={{ width: "75%" }} />
                     </div>
                 </motion.article>
 
-                {/* Card 4 - Growth Metrics */}
+                {/* Card 4 - Real Results */}
                 <motion.article
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    className="sm:p-6 flex flex-col min-h-[320px] ring-1 ring-white/15 group transition-all duration-300 bg-white/10 bg-cover rounded-2xl p-5 backdrop-blur grayscale justify-between relative overflow-hidden"
-                    style={{ backgroundImage: "url('/data-analytics.png')", backgroundPosition: "center 20%" }}
+                    ref={card4Ref}
+                    initial={{ opacity: 0, y: 60, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    className="sm:p-6 flex flex-col min-h-[320px] ring-1 ring-white/15 group transition-all duration-300 bg-white/10 rounded-2xl p-5 backdrop-blur grayscale justify-between relative overflow-hidden"
                 >
-                    <div
-                        className="absolute inset-0 transition-all duration-300 group-hover:blur-sm bg-cover rounded-2xl grayscale"
-                        style={{ backgroundImage: "url('/data-analytics.png')", backgroundPosition: "center 20%", zIndex: -1 }}
+                    {/* Parallax Background */}
+                    <motion.div
+                        className="absolute inset-0 -inset-y-10 transition-all duration-500 group-hover:scale-105 bg-cover rounded-2xl grayscale"
+                        style={{
+                            backgroundImage: "url('/data-analytics.png')",
+                            backgroundPosition: "center 20%",
+                            y: y4
+                        }}
                     />
-                    <div className="space-y-5 relative z-10">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-2xl" />
+                    <motion.div
+                        className="space-y-5 relative z-10"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    >
                         <div className="flex items-center gap-3">
                             <div>
                                 <h3 className="text-lg font-semibold text-white tracking-tight">04. Real Results</h3>
@@ -164,7 +235,7 @@ export function SolutionsSection() {
                             <BarChart3 className="h-3.5 w-3.5 text-white/70" />
                             <span className="text-xs text-white/70">Founder meetings, not followers</span>
                         </div>
-                    </div>
+                    </motion.div>
                     <div className="mt-4 h-1.5 bg-white/10 rounded-full overflow-hidden relative z-10">
                         <div className="h-full bg-white/40 rounded-full" style={{ width: "100%" }} />
                     </div>

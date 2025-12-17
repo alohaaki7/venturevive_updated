@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { ContactModal } from "@/components/ui/contact-modal";
+import { motion } from "framer-motion";
+import { usePreloader } from "@/components/ui/preloader-context";
 
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -12,6 +14,7 @@ export function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
     const isHomePage = pathname === "/";
+    const { isPreloaderDone } = usePreloader();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -25,7 +28,15 @@ export function Navbar() {
 
     return (
         <>
-            <header className={`fixed top-4 left-0 right-0 z-50 text-white mx-4 sm:mx-8 md:mx-16 transition-all duration-300 ${isScrolled ? "translate-y-[-10px] opacity-0 md:opacity-100 md:translate-y-0" : ""}`}>
+            <motion.header
+                initial={{ opacity: 0, y: -20 }}
+                animate={isPreloaderDone ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+                transition={{
+                    duration: 0.8,
+                    ease: [0.16, 1, 0.3, 1] // Smooth ease-out-expo
+                }}
+                className={`fixed top-4 left-0 right-0 z-50 text-white mx-4 sm:mx-8 md:mx-16 transition-all duration-300 ${isScrolled ? "translate-y-[-10px] opacity-0 md:opacity-100 md:translate-y-0" : ""}`}
+            >
                 <div className="w-full">
                     <div className="h-14 flex ring-1 ring-white/10 bg-slate-900/80 backdrop-blur-md rounded-full pr-2.5 pl-4 items-center justify-between shadow-lg">
                         <Link href="/" className="flex gap-2 items-center">
@@ -126,7 +137,7 @@ export function Navbar() {
                         </div>
                     )}
                 </div>
-            </header>
+            </motion.header>
 
             <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
         </>

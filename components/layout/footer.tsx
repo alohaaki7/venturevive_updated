@@ -1,7 +1,109 @@
+"use client";
+
 import Link from "next/link";
-import { Mail, Calendar, Linkedin, Instagram, Dribbble, Globe } from "lucide-react";
+import { Mail, Linkedin } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
+
+// Magnetic effect hook
+function useMagnetic(strength: number = 0.3) {
+    const ref = useRef<HTMLDivElement>(null);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const springConfig = { damping: 20, stiffness: 300 };
+    const xSpring = useSpring(x, springConfig);
+    const ySpring = useSpring(y, springConfig);
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!ref.current) return;
+        const rect = ref.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const deltaX = (e.clientX - centerX) * strength;
+        const deltaY = (e.clientY - centerY) * strength;
+        x.set(deltaX);
+        y.set(deltaY);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return { ref, xSpring, ySpring, handleMouseMove, handleMouseLeave };
+}
+
+// Staggered text animation component
+function AnimatedText({ text, className }: { text: string; className?: string }) {
+    const words = text.split(" ");
+
+    const container = {
+        hidden: { opacity: 0 },
+        visible: (i = 1) => ({
+            opacity: 1,
+            transition: { staggerChildren: 0.1, delayChildren: 0.04 * i },
+        }),
+    };
+
+    const child = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: "spring",
+                damping: 12,
+                stiffness: 100,
+            },
+        },
+    };
+
+    return (
+        <motion.span
+            className={className}
+            variants={container}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            style={{ display: "inline-flex", flexWrap: "wrap" }}
+        >
+            {words.map((word, index) => (
+                <motion.span
+                    variants={child}
+                    key={index}
+                    style={{ marginRight: "0.3em", display: "inline-block" }}
+                >
+                    {word}
+                </motion.span>
+            ))}
+        </motion.span>
+    );
+}
+
+// Moving gradient text component
+function GradientText({ children }: { children: React.ReactNode }) {
+    return (
+        <motion.span
+            className="bg-gradient-to-r from-blue-300 via-purple-300 to-blue-300 bg-clip-text text-transparent bg-[length:200%_auto]"
+            animate={{
+                backgroundPosition: ["0% center", "200% center"],
+            }}
+            transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear",
+            }}
+        >
+            {children}
+        </motion.span>
+    );
+}
 
 export function Footer() {
+    const magnetic = useMagnetic(0.4);
+    const [emailHovered, setEmailHovered] = useState(false);
+
     return (
         <footer className="relative z-10">
             <div className="mx-8 sm:mx-16 mb-16 mt-8 sm:mt-10">
@@ -13,45 +115,105 @@ export function Footer() {
                     </div>
 
                     <div className="relative">
-                        <h2 className="text-[10vw] sm:text-[12vw] lg:text-[9vw] leading-[0.9] font-semibold tracking-tighter font-sans">
-                            <span className="block">Ready to build</span>
-                            <span className="block text-blue-300">your <em className="italic">digital legacy</em>?</span>
-                        </h2>
+                        {/* Magnetic heading with staggered text */}
+                        <motion.div
+                            ref={magnetic.ref}
+                            onMouseMove={magnetic.handleMouseMove}
+                            onMouseLeave={magnetic.handleMouseLeave}
+                            style={{ x: magnetic.xSpring, y: magnetic.ySpring }}
+                            className="cursor-default"
+                        >
+                            <h2 className="text-[10vw] sm:text-[12vw] lg:text-[9vw] leading-[0.9] font-semibold tracking-tighter font-sans">
+                                <span className="block">
+                                    <AnimatedText text="Ready to build" />
+                                </span>
+                                <span className="block">
+                                    <motion.span
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: 0.3 }}
+                                    >
+                                        <GradientText>
+                                            your <em className="italic">digital legacy</em>?
+                                        </GradientText>
+                                    </motion.span>
+                                </span>
+                            </h2>
+                        </motion.div>
 
                         <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:items-end">
-                            {/* Email */}
-                            <div>
+                            {/* Email with hover underline animation */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.4 }}
+                            >
                                 <p className="text-sm text-white/60 font-sans">Get Started</p>
                                 <a
                                     href="mailto:hello@venturevive.io"
-                                    className="mt-2 inline-flex items-center gap-3 text-xl sm:text-2xl font-medium tracking-tight text-white font-sans hover:text-white/80 transition-colors"
+                                    className="mt-2 inline-flex items-center gap-3 text-xl sm:text-2xl font-medium tracking-tight text-white font-sans group relative"
+                                    onMouseEnter={() => setEmailHovered(true)}
+                                    onMouseLeave={() => setEmailHovered(false)}
                                 >
-                                    <Mail className="w-5 h-5 stroke-[1.5] flex-shrink-0" />
-                                    <span className="break-all">hello@venturevive.io</span>
+                                    <motion.span
+                                        animate={{ rotate: emailHovered ? [0, -10, 10, -10, 0] : 0 }}
+                                        transition={{ duration: 0.5 }}
+                                    >
+                                        <Mail className="w-5 h-5 stroke-[1.5] flex-shrink-0" />
+                                    </motion.span>
+                                    <span className="relative">
+                                        <span className="break-all">hello@venturevive.io</span>
+                                        {/* Animated underline */}
+                                        <motion.span
+                                            className="absolute bottom-0 left-0 h-[2px] bg-blue-400"
+                                            initial={{ width: 0 }}
+                                            animate={{ width: emailHovered ? "100%" : 0 }}
+                                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        />
+                                    </span>
                                 </a>
-                            </div>
+                            </motion.div>
 
-                            {/* Social */}
-                            <div>
+                            {/* Social with scale/glow hover */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.5 }}
+                            >
                                 <p className="text-sm text-white/60 font-sans">Follow Along</p>
                                 <div className="flex flex-wrap gap-3 mt-2 items-center">
-                                    <a
+                                    <motion.a
                                         href="https://www.linkedin.com/company/venturevive"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white text-gray-900 border border-white/10 hover:bg-white/90 transition-colors duration-200"
+                                        className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white text-gray-900 border border-white/10 relative"
+                                        whileHover={{
+                                            scale: 1.15,
+                                            boxShadow: "0 0 25px rgba(59, 130, 246, 0.5), 0 0 50px rgba(59, 130, 246, 0.3)"
+                                        }}
+                                        whileTap={{ scale: 0.95 }}
+                                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
                                     >
                                         <Linkedin className="w-5 h-5" />
-                                    </a>
+                                    </motion.a>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
 
-                        <div className="mt-6 pt-6 border-t border-white/10">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.6 }}
+                            className="mt-6 pt-6 border-t border-white/10"
+                        >
                             <p className="text-center md:text-left text-xs text-white/50 font-sans">
                                 © 2025 VentureVive — Crafted with care in San Francisco
                             </p>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>
