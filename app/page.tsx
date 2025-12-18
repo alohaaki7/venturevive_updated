@@ -18,9 +18,8 @@ export default function Home() {
         <SolutionsSection />
       </ScrollReveal>
 
-      <ScrollReveal animation="fade-up" duration={1} enableExit={true}>
-        <PerformanceSection />
-      </ScrollReveal>
+      {/* Performance has its own internal animations - NO wrapper needed */}
+      <PerformanceSection />
 
       {/* Portfolio has its own GSAP scroll animation - NO wrapper needed */}
       <PortfolioSection />

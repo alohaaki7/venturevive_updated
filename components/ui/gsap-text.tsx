@@ -129,7 +129,7 @@ export function GSAPText({
                     start,
                     end,
                     scrub: scrub ? 1 : false,
-                    toggleActions: "play reverse play reverse",
+                    toggleActions: "play none none none",
                 },
             });
         }, containerRef);
@@ -191,7 +191,7 @@ export function GSAPHeading({
                     trigger: containerRef.current,
                     start: "top 85%",
                     end: "top 30%",
-                    toggleActions: "play reverse play reverse",
+                    toggleActions: "play none none none",
                 },
             });
         }, containerRef);
@@ -257,7 +257,7 @@ export function GSAPParagraph({
                     scrollTrigger: {
                         trigger: containerRef.current,
                         start: "top 85%",
-                        toggleActions: "play reverse play reverse",
+                        toggleActions: "play none none none",
                     },
                 }
             );
