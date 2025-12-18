@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { ContactModal } from "@/components/ui/contact-modal";
 import { motion } from "framer-motion";
 import { usePreloader } from "@/components/ui/preloader-context";
+import { TransitionLink } from "@/components/ui/transition-link";
 
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -58,10 +59,10 @@ export function Navbar() {
                                     <span className="relative z-10">Team</span>
                                     <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-500 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
                                 </Link>
-                                <Link href="/case-studies" className="relative px-4 py-2 rounded-full overflow-hidden transition-all duration-300 hover:text-white hover:bg-white/10 hover:backdrop-blur-xl hover:border hover:border-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] font-sans group">
+                                <TransitionLink href="/case-studies" className="relative px-4 py-2 rounded-full overflow-hidden transition-all duration-300 hover:text-white hover:bg-white/10 hover:backdrop-blur-xl hover:border hover:border-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] font-sans group">
                                     <span className="relative z-10">Our Work</span>
                                     <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-500 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-                                </Link>
+                                </TransitionLink>
                             </nav>
                         )}
 
@@ -114,13 +115,12 @@ export function Navbar() {
                                         >
                                             Team
                                         </Link>
-                                        <Link
+                                        <TransitionLink
                                             href="/case-studies"
-                                            onClick={closeMobileMenu}
                                             className="px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                                         >
                                             Our Work
-                                        </Link>
+                                        </TransitionLink>
                                         <div className="h-px bg-white/10 my-2"></div>
                                     </>
                                 )}

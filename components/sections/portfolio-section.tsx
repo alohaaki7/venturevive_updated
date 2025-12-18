@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import Link from "next/link";
+import { TransitionLink } from "@/components/ui/transition-link";
 import { caseStudies } from "@/lib/case-studies";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -97,8 +97,8 @@ export function PortfolioSection() {
                                 <div
                                     key={index}
                                     className={`h-1 rounded-full transition-all duration-300 ${index === activeIndex
-                                            ? "w-8 bg-blue-400"
-                                            : "w-2 bg-white/20"
+                                        ? "w-8 bg-blue-400"
+                                        : "w-2 bg-white/20"
                                         }`}
                                 />
                             ))}
@@ -120,8 +120,8 @@ export function PortfolioSection() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className={`portfolio-card group block w-[85vw] max-w-[600px] sm:w-[500px] md:w-[600px] flex-shrink-0 rounded-2xl overflow-hidden shadow-2xl ring-1 transition-all duration-500 ${index === activeIndex
-                                        ? "ring-blue-400/50 scale-100 opacity-100"
-                                        : "ring-white/10 scale-95 opacity-40"
+                                    ? "ring-blue-400/50 scale-100 opacity-100"
+                                    : "ring-white/10 scale-95 opacity-40"
                                     }`}
                             >
                                 {/* Card Image */}
@@ -162,8 +162,8 @@ export function PortfolioSection() {
                                             </p>
                                         </div>
                                         <span className={`inline-flex items-center gap-1.5 text-sm transition-colors px-4 py-2 rounded-full flex-shrink-0 ${index === activeIndex
-                                                ? "text-blue-300 bg-white/10 group-hover:bg-white/20"
-                                                : "text-white/40 bg-white/5"
+                                            ? "text-blue-300 bg-white/10 group-hover:bg-white/20"
+                                            : "text-white/40 bg-white/5"
                                             }`}>
                                             View
                                             <ExternalLink className="w-4 h-4" />
@@ -205,13 +205,13 @@ export function PortfolioSection() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="flex justify-center mt-10 sm:mt-12 px-4"
                 >
-                    <Link
+                    <TransitionLink
                         href="/case-studies"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 bg-white/5 text-sm font-medium text-white hover:bg-white/10 hover:scale-105 transition-all"
                     >
                         View All Work
                         <ExternalLink className="w-4 h-4" />
-                    </Link>
+                    </TransitionLink>
                 </motion.div>
             </div>
         </section>
