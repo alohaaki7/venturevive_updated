@@ -6,8 +6,8 @@ import { TransitionProvider, useTransition } from "@/components/ui/transition-co
 import { PageTransition } from "@/components/ui/page-transition";
 
 function TransitionLayer() {
-    const { isTransitioning } = useTransition();
-    return <PageTransition isActive={isTransitioning} />;
+    const { isTransitioning, direction } = useTransition();
+    return <PageTransition isActive={isTransitioning} direction={direction} />;
 }
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {

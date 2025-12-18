@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import { TransitionLink } from "@/components/ui/transition-link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ExternalLink, ArrowLeft } from "lucide-react";
@@ -12,13 +12,13 @@ export default function CaseStudiesPage() {
         <div className="pt-32 pb-24 mx-8 sm:mx-16">
             {/* Header */}
             <div className="mb-16">
-                <Link
+                <TransitionLink
                     href="/"
                     className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors mb-8"
                 >
                     <ArrowLeft className="w-4 h-4" />
                     <span>Back to Home</span>
-                </Link>
+                </TransitionLink>
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

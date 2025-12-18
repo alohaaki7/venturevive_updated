@@ -40,10 +40,10 @@ export function Navbar() {
             >
                 <div className="w-full">
                     <div className="h-14 flex ring-1 ring-white/10 bg-slate-900/80 backdrop-blur-md rounded-full pr-2.5 pl-4 items-center justify-between shadow-lg">
-                        <Link href="/" className="flex gap-2 items-center">
+                        <TransitionLink href="/" className="flex gap-2 items-center">
                             <img src="/logo.png" alt="VentureVive" className="h-7 w-auto" />
                             <span className="text-base font-semibold tracking-tight font-sans">VentureVive</span>
-                        </Link>
+                        </TransitionLink>
 
                         {isHomePage && (
                             <nav className="hidden md:flex items-center gap-1 text-sm text-slate-300">
