@@ -14,7 +14,7 @@ const team = [
         linkedin: "https://linkedin.com/in/akmyrat-a-60129b17b",
     },
     {
-        name: "Jumamyrat",
+        name: "Juma",
         role: "Development & Tech",
         roleDescription: "Building fast, modern websites that convert visitors into partners.",
         linkedin: "",
